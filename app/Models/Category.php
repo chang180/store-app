@@ -15,5 +15,8 @@ class Category extends Model
         'description',
     ];
 
-    
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class,'category_menu');
+    }
 }
