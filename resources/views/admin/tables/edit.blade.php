@@ -4,7 +4,6 @@
             {{ __('Tables') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex m-2 p-2">
@@ -12,19 +11,20 @@
                     class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg">Table Index</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
-                <form method="POST" action="{{ route('admin.tables.store') }}">
+                <form method="POST" action="{{ route('admin.tables.update',$table) }}">
                     @csrf
+                    @method('PUT')
                     <div class="mb-6">
                         <label for="name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                             Name</label>
-                        <input type="text" id="name" name="name"
+                        <input type="text" id="name" name="name" value="{{ $table->name }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required />
                     </div>
                     <div class="mb-6">
                         <label for="guest_number"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Guest Number</label>
-                            <input type="number" id="guest_number" name="guest_number"
+                            <input type="number" id="guest_number" name="guest_number" value="{{ $table->guest_number }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required />
                     </div>
@@ -33,7 +33,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
                             <select name="status" id="status" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                 @foreach (App\Enums\TableStatus::cases() as $status)
-                                <option value="{{ $status->value }}">{{ $status->name }}</option>
+                                <option value="{{ $status->value }}" @selected($table->status==$status))>{{ $status->name }}</option>
                                 @endforeach
                             </select>
                     </div>
@@ -42,7 +42,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Location</label>
                             <select name="location" id="location" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                                 @foreach (App\Enums\TableLocation::cases() as $location)
-                                <option value="{{ $location->value }}">{{ $location->name }}</option>
+                                <option value="{{ $location->value }}" @selected($table->location==$location)>{{ $location->name }}</option>
                                 @endforeach
                             </select>
                     </div>

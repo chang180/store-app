@@ -12,31 +12,67 @@
                     class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg">Reservation Index</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
-                <form>
-                    <div class="mb-6">
-                        <label for="name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Name</label>
-                        <input type="name" id="email"
+                <form method="POST" action="{{ route('admin.reservations.store') }}">
+                    @csrf
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
+                        <div class="p-2 m-2">
+                            <label for="first_name"
+                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                                First Name</label>
+                            <input type="text" name="first_name" id="first_name"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                required />
+                        </div>
+                        <div class="p-2 m-2">
+                            <label for="last_name"
+                                class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Last Name</label>
+                            <input type="text" name="last_name" id="last_name"
+                                class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                required />
+                        </div>
+                    </div>
+                    <div class="m-2 p-2">
+                        <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Email</label>
+                        <input type="email" name="email" id="email"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required />
                     </div>
-                    <div class="mb-6">
-                        <label for="image"
-                            class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">Image</label>
-                        <input type="file" id="image"
+                    <div class="m-2 p-2">
+                        <label for="tel_number" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Phone Number</label>
+                        <input type="text" name="tel_number" id="tel_number"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                             required />
                     </div>
-                    <div class="mb-6">
-                        <label for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Description</label>
-                        <textarea id="description" rows="4"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                    <div class="m-2 p-2">
+                        <label for="res_date" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Reservation Date</label>
+                        <input type="datetime-local" name="res_date" id="res_date"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            required />
+                    </div>
+                    <div class="m-2 p-2">
+                        <label for="guest_number" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Guest Number</label>
+                        <input type="text" name="guest_number" id="guest_number"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                            required />
+                    </div>
+                    <div class="m-2 p-2">
+                        <label for="table_id" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Table</label>
+                        <select name="table_id" id="table_id"
+                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
+                            @foreach ($tables as $table)
+                                <option value="{{ $table->id }}">{{ $table->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <button type="submit"
                         class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Store</button>
                 </form>
-
             </div>
         </div>
     </div>
