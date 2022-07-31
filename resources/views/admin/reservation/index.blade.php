@@ -63,7 +63,7 @@
                                     {{ $reservation->guest_number }}
                                 </td>
                                 <td class="py-4 px-6">
-                                    {{ $reservation->table_id }}
+                                    {{ $reservation->table->name }}
                                 </td>
                                 <td class="py-4 px-6">
                                     <div class="flex space-x-2">
