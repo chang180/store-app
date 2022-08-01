@@ -12,7 +12,7 @@
                     class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg">Reservation Index</a>
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
-                <form method="POST" action="{{ route('admin.reservations.update',$reservation) }}">
+                <form method="POST" action="{{ route('admin.reservations.update',$reservation->id) }}">
                     @method('PUT')
                     @csrf
                     <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -53,7 +53,7 @@
                     <div class="m-2 p-2">
                         <label for="res_date" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300">
                             Reservation Date</label>
-                        <input type="datetime-local" name="res_date" id="res_date" value="{{ old('res_date')??$reservation->res_date }}"
+                        <input type="datetime-local" name="res_date" id="res_date" value="{{ old('res_date')??$reservation->res_date->format("Y-m-d\TH:i:s") }}"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 @error('email') rounded-red-400 @enderror"
                             required />
                         @error('res_date')
@@ -74,12 +74,12 @@
                         <select name="table_id" id="table_id"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
                             @foreach ($tables as $table)
-                                <option value="{{ $table->id }}" @selected($reservation->table_id == $table->id)>{{ $table->name }}</option>
+                                <option value="{{ $table->id }}" @selected($reservation->table_id == $table->id)>{{ $table->name }} ({{ $table->guest_number }} Guests) </option>
                             @endforeach
                         </select>
                     </div>
                     <button type="submit"
-                        class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Store</button>
+                        class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto">Update</button>
                 </form>
             </div>
         </div>
