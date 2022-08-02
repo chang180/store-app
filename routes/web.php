@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\UserController;
@@ -33,7 +34,7 @@ Route::get('/reservations/step-one', [FrontendReservationController::class, 'ste
 Route::post('/reservations/step-one', [FrontendReservationController::class, 'storeStepOne'])->name('reservations.store.step.one');
 Route::get('/reservations/step-two', [FrontendReservationController::class, 'stepTwo'])->name('reservations.step.two');
 Route::post('/reservations/step-two', [FrontendReservationController::class, 'storeStepTwo'])->name('reservations.store.step.two');
-Route::get('/thankyou', [FrontendWelcomeController::class,'thankyou'])->name('thankyou');
+Route::get('/thankyou', [FrontendWelcomeController::class, 'thankyou'])->name('thankyou');
 
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
@@ -41,7 +42,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/menus', MenuController::class);
     Route::resource('/reservations', ReservationController::class);
     Route::resource('/tables', TableController::class);
-    Route::resource('/users', UserController::class);
+    Route::resource('/users', UserController::class)->middleware('admin_1');
 });
 
 Route::get('/dashboard', function () {
